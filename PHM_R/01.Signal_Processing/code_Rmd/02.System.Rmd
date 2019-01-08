@@ -1,0 +1,296 @@
+---
+title: "Linear Time-Invariant Systems"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+By Prof. Seungchul Lee \
+http://iai.postech.ac.kr/ \
+Industrial AI Lab at POSTECH \
+(Translate to R by Gwangil Seo)
+
+Table of Contents
+
+   * [1. Linear Time-Invariant(LTI) Systems]
+      + [1.1. Systems]
+      + [1.2. Linear Systems]
+      + [1.3. Time-Invariant Systems]
+      + [1.4. Linear Time-Invariant(LTI) Systems]
+   * [2. Convolution]
+      + [2.1. Convolution in Matrix (= Toeplitz Matrices)]
+      + [2.2. Impulse Response]
+   * [3. Convolution Examples]
+      + [3.1. Convolution Demo]
+      + [3.2. Denoising a Piecewise Smooth Signal]
+      + [3.3. Edge Detection]
+      + [3.4. Convolution on Audio]
+   * [4. Non-linear System: Median Filter]
+      + [4.1. Removing Shot Noise in Audio]
+
+## 1. Linear Time-Invariant(LTI) Systems
+
+### 1.1. Systems
+
+A discrete-time system $\mathcal{H}$ is a transformation (a rule or formula) that maps a discrete-time input signal $x$ into a discrete-time output signal $y$
+<center>![](D:/PHM_R/image_files/system.jpg)</center>
+
+### 1.2. Linear Systems
+A system $\mathcal{H}$ is __linear__ if it satisfies the following two properties:
+
+__1) Scaling__
+$$\mathcal{H} \{ \alpha x \} = \alpha \mathcal{H}\quad \forall \alpha \in \mathbb{C} $$
+<center>![](D:/PHM_R/image_files/scaling.jpg)</center>
+
+__2) Additivity__
+$$\text{If}\ y_1 = \mathcal{H} \{ x_1 \}\ \text{and}\ y_2 = \mathcal{H} \{x_2\}\ \text{then}\ \mathcal{H}\{x_1 + x_2\}=y_1 + y_2 $$
+<center>![](D:/PHM_R/image_files/additivity.jpg)</center>
+
+### 1.3. Time-Invariant Systems
+A system $\mathcal{H}$ processing infinite-length signals is __time-invariant__ (shift-invariant) if a time shift of the input signal creates a corresponding time shift in the output signal
+<center>![](D:/PHM_R/image_files/TI_systems.jpg)</center>
+
+### 1.4. Linear Time-Invariant(LTI) Systems
+We usally consider __Linear Time-Invariant(LST)__ systems.
+
+## 2. Convolution
+__Convolution__ is defined as the integral of the product of the two functions after one is reversed and shifted
+$$y[n] = \sum_{m=-\infty}^\infty h[n-m]x[m] = x[n]*h[n]$$
+output $y[n]$ came out by convolution of input $x[n]$ and system $h[n]$
+<center><iframe src="https://www.youtube.com/embed/Ma0YONjMZLI?rel=0" 
+width="560" height="315" frameborder="0" allowfullscreen></iframe></center>
+
+### 2.1. Convolution in Matrix (= Toeplitz Matrices)
+
+For infinite-Length Signals
+$$y[n] = x[n] * h[n] = \sum_{m=-\infty}^\infty h[n-m]x[m] \\ = ... h[n+2]x[-2] + h[n+1]x[-1] + h[n]x[0] + h[n-1]x[1] + h[n-2]x[2] ...$$
+It is inner product of $h$ vectors and $x$
+$$\begin{align*}
+y[n] &= \begin{bmatrix}
+\cdots & \bracevert & \bracevert & \bracevert & \bracevert & \bracevert & \cdots\\
+\cdots & h[n+2] & h[n+1] & h[n] & h[n-1] & h[n-2]\ & \cdots\\
+\cdots & \bracevert & \bracevert & \bracevert & \bracevert & \bracevert & \cdots
+\end{bmatrix}
+\begin{bmatrix}
+\vdots\\
+x[-2]\\
+x[-1]\\
+x[0]\\
+x[1]\\
+x[2]\\
+\vdots
+\end{bmatrix}\\ \\ &= H x
+\end{align*}$$
+Convolution is product of $H$ and $x$
+<center>![](D:/PHM_R/image_files/Toeplitz.jpg)</center>
+$$h = h[0]$$
+
+### 2.2. Impulse Response
+
+(impulse): $\delta[n] = \begin{cases} 1 \quad n = 0\\ 0 \quad \text{otherwise}\\ \end{cases}$
+<center>![](D:/PHM_R/image_files/circulentmatrix.png)</center>
+
+* Output of system and __delta function__ (impulse) is $h$. So, We call $h$ the impulse response of the system
+
+* From $h$, we can build matrix $H$
+    + Coulmns/row of $H$ are circularly shifted versions of the 0-th column/row
+    + $h$ contains all the information of the LTI system
+  
+* LTI systems are Toeplitz matrices(infinite-length signals)
+    + Entries on the matrix diagonals are the same
+ 
+## 3. Convolution Examples
+
+Convolution = filtering in time domain
+
+### 3.1. Convolution Demo
+
+```{r echo=TRUE}
+# Convolve a rectangular pulse with itself
+
+# pulse
+x <- c(0, 0, 0, 1, 1, 1, 0, 0, 0)
+
+# convolve pulse with itself
+conv <- function(x, y, conj = TRUE, type = c("circular", "open", "filter")){
+  convolve(x, y[length(y):1], conj = conj, type = type)
+}
+y <- conv(x, x, type = 'open')
+
+n <- 0:(length(y) - 1)
+
+par(mfrow = c(2, 1), mar = c(3, 2, 2, 1))
+plot(x, col = 'deepskyblue', pch = 16, cex = 1, xlim = c(0, 16), ylim = c(-0.2, 1.2), main = 'pulse')
+arrows(x0 = 1:9, y0 = 0, x1 = 1:9, y1 = x, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+
+plot(n, y, pch = 16, col = 'deepskyblue', cex = 1, xlim = c(0, 16), ylim = c(-0.2, 3.2), main = 'pulse * pulse')
+arrows(x0 = n, y0 = 0, x1 = n, y1 = y, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+```
+
+### 3.2. Denoising a Piecewise Smooth Signal
+
+ * moving average(MA) filter
+ * low-pass filter in time domain
+ 
+```{r echo=T}
+# piecewise smooth signal
+N <- 50
+n <- 0:(N - 1)
+
+x <- sin(pi/N*n)*c(rep(1, N/2), rep(-1, N/2))
+xn <- x + 0.1 * rnorm(N, 0, 1)
+
+# construct moving average filter impulse response of length M
+M <- 5
+h <- rep(0, N)
+h[1:5] <- 1 / M
+
+# convolve noisy signal with impulse response
+y <- conv(x, h, type = 'open')
+
+par(mfrow = c(2, 2), mar = c(2, 2, 2, 1))
+plot(x, pch = "", ylim = c(-1.5, 1.5), xlim = c(1, N), main = "piecewise smooth signal")
+arrows(x0 = n, y0 = 0, x1 = n, y1 = x, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+
+plot(xn, pch = "", ylim = c(-1.5, 1.5), xlim = c(1, N), main = "piecewise smooth signal + noise")
+arrows(x0 = n, y0 = 0, x1 = n, y1 = xn, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+
+plot(h, pch = "", ylim = c(-1.5, 1.5), xlim = c(1, N), main = "impulse response")
+arrows(x0 = n, y0 = 0, x1 = n, y1 = h, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+
+plot(y, pch = "", ylim = c(-1.5, 1.5), xlim = c(1, N), main = "convouluted output")
+arrows(x0 = n, y0 = 0, x1 = n, y1 = y, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+```
+
+### 3.3. Edge Detection
+
+```{r echo=T}
+# haar wavelet edge detector
+M <- 4
+h <- rep(0, N)
+h[1:2] <- -1 / M
+h[3:4] <- 1 / M
+
+# convolve noisy signal with impulse response
+y <- conv(xn, h, type = 'open')
+
+par(mfrow = c(2, 2), mar = c(2, 2, 2, 1))
+plot(x, pch = "", ylim = c(-1.5, 1.5), xlim = c(1, N), main = "piecewise smooth signal")
+arrows(x0 = n, y0 = 0, x1 = n, y1 = x, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+
+plot(xn, pch = "", ylim = c(-1.5, 1.5), xlim = c(1, N), main = "piecewise smooth signal + noise")
+arrows(x0 = n, y0 = 0, x1 = n, y1 = xn, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+
+plot(h, pch = "", ylim = c(-1.5, 1.5), xlim = c(1, N), main = "impulse response")
+arrows(x0 = n, y0 = 0, x1 = n, y1 = h, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+
+plot(y, pch = "", ylim = c(-1.5, 1.5), xlim = c(1, N), main = "convouluted output")
+arrows(x0 = n, y0 = 0, x1 = n, y1 = y, col = 'deepskyblue', length = 0, angle = 0, lwd = 1)
+abline(h = 0)
+```
+
+<center><iframe src="https://www.youtube.com/embed/I3isHB9Iy7E?rel=0"
+width="560" height="315" frameborder="0" allowfullscreen></iframe></center>
+
+<center><iframe src="https://www.youtube.com/embed/ZW6pw89cuEA?rel=0" 
+width="560" height="315" frameborder="0" allowfullscreen></iframe></center>
+
+
+### 3.4. Convolution on Audio
+
+```{r echo=T, message=FALSE, warning=F}
+x <- tuneR::readWave('D:/PHM_R/data_files/violin_origional.wav')
+Fs <- x@samp.rate
+x <- x@left
+
+x <- x / max(x)  # normalize
+sound <- function(data, samp.rate) {
+  W <- tuneR::normalize(tuneR::Wave(data, samp.rate = samp.rate, bit = 16), unit = "16")
+  tuneR::play(W)
+}
+sound(x, Fs)  # play a wave file with sampling rate Fs
+```
+```{r echo=T}
+# plot wave file
+plot(1:length(x)/Fs, x, type = 'l', lwd = 1, col = 'deepskyblue', xlab = 'time in sec', ylab = '')
+```
+
+```{r echo=T, message=FALSE, warning=F}
+# impulse response in a closed room (by gunshot)
+h <- tuneR::readWave('D:/PHM_R/data_files/gunshot.wav')
+Fs <- h@samp.rate
+h <- h@left
+h <- h / max(h)
+
+# sound(h, Fs)
+
+plot(1:length(h)/Fs, h, type = 'l', lwd = 1, col = 'deepskyblue', xlab = 'time in sec', ylab = '')
+```
+
+```{r echo=T}
+y <- conv(x, h, type = 'open')
+y <- y / max(y)
+
+par(mfrow = c(2, 1), mar = c(2, 2, 2, 1))
+plot(1:length(x)/Fs, x, type = 'l', lwd = 1, col = 'deepskyblue', main = 'original', xlab = '', ylab = '', xlim = c(0, 6))
+plot(1:length(y)/Fs, y, type = 'l', lwd = 1, col = 'deepskyblue', main = 'convoluted', xlab = '', ylab = '', xlim = c(0, 6))
+
+# image how the music played in a closed room sounds like
+
+sound(y, Fs)
+```
+
+## 4. Non-linear System: Median Filter
+
+$$y[n] = \text{median} \{x[n-k],\ ...,\ x[n+k]\}$$
+
+ * There are nonlinear neighborhood operations that can be performed for the purpose of noise reduction that can do a better job of preserving edges than simple smoothing filters.
+ * Median filters can do an excellent job of rejecting certain types of noise, in particular, "shot" or impulse noise (outlier in a time series) in which some individual pixels or signals have extreme values.
+ 
+### 4.1. Removing Shot Noise in Audio
+```{r echo=TRUE, message=FALSE, warning=F}
+x <- tuneR::readWave('D:/PHM_R/data_files/violin_origional.wav')
+Fs <- x@samp.rate
+x <- x@left
+
+x <- x / max(x)  # normalize
+sound(x, Fs)  # play a wave file with sampling rate Fs
+```
+```{r echo=T}
+# generate an audio signal with a salt and pepper noise: "on and off" pixels
+shot_noise <- rep(0, length(x))
+shot_noise[sample(1:length(x), length(x) * 0.04)] <- 1
+x_noise <- x + shot_noise - mean(shot_noise);
+
+sound(x_noise,Fs)
+```
+```{r echo=T}
+# apply a linear low-pass filter
+
+h = c(1,1,1)/3
+x_avg = conv(x_noise, h, type = 'open')
+sound(x_avg,Fs)  # does not work very well
+```
+```{r echo=TRUE}
+# apply a nonlinear filter
+x_median = zoo::rollmedian(x_noise,7)
+sound(x_median,Fs)  # WOW !!!
+```
+```{r echo=TRUE}
+par(mfrow = c(4, 1), mar = c(2, 2, 1, 1))
+plot(x, type = 'l', col = 'deepskyblue', lwd = 1)
+plot(x_noise, type = 'l', col = 'deepskyblue', lwd = 1)
+plot(x_avg, type = 'l', col = 'deepskyblue', lwd = 1)
+plot(x_median, type = 'l', col = 'deepskyblue', lwd = 1)
+```
