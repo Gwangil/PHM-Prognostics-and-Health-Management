@@ -177,7 +177,7 @@ arrows(x0 = n, y0 = 0, x1 = n, y1 = Im(x), col = 'deepskyblue', length = 0, angl
 abline(h = 0)
 matlines(x = n, y = cbind(1 * exp(-n / N), -1 * exp(-n / N)), type = 'l', lwd = 2, lty = 2, col = 'red')
 
-plot_ly(x = ~n, y = ~Re(x), z = ~Im(x))
+plot_ly(x = ~n, y = ~Re(x), z = ~Im(x), type = "scatter3d", mode = "markers")
 
 # polar coordinate
-plot_ly(theta = ~Arg(x)/pi*180, r = ~Mod(x), type = 'scatterpolar')
+plot_ly(theta = ~Arg(x)/pi*180, r = ~Mod(x), type = 'scatterpolar', mode = "markers")

@@ -396,7 +396,7 @@ matlines(x = n, y = cbind(1 * exp(-n / N), -1 * exp(-n / N)), type = 'l', lwd = 
 ```
 ```{r echo=T, message=FALSE}
 library(plotly)
-plot_ly(x = ~n, y = ~Re(x), z = ~Im(x))
+plot_ly(x = ~n, y = ~Re(x), z = ~Im(x), type = "scatter3d", mode = "markers")
 ```
 
 __2) polar form__
@@ -406,6 +406,6 @@ $$
 
 ```{r echo=T, message=FALSE}
 # polar coordinate
-plot_ly(theta = ~Arg(x)/pi*180, r = ~Mod(x), type = 'scatterpolar')
+plot_ly(theta = ~Arg(x)/pi*180, r = ~Mod(x), type = 'scatterpolar', mode = "markers")
 ```
 
