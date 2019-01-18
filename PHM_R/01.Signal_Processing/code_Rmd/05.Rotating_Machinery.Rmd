@@ -26,10 +26,10 @@ Table of Contents
 ## 1. Data from Our Testbed
 
  * unbalance.mat $\Longrightarrow$ [01 02 03 04]
-    + 01 : ½Ã°£
-    + 02 : ºÒ±ÕÇüÀÌ °ÅÀÇ ¾ø´Â °æ¿ì Áøµ¿(Á¤»ó) 
-    + 03 : ºÒ±ÕÇüÀÌ ÀÖ´Â °æ¿ì Áøµ¿ (1X¼ººÐÀÌ Áõ°¡) 3.6g * 44.4mm
-    + 04 : ºÒ±ÕÇüÀÌ ´õ ½ÉÇÑ °æ¿ì Áøµ¿ (1X¼ººÐÀÌ ¸Å¿ì Áõ°¡) 5.6g * 44.4mm
+    + 01 : ì‹œê°„
+    + 02 : ë¶ˆê· í˜•ì´ ê±°ì˜ ì—†ëŠ” ê²½ìš° ì§„ë™(ì •ìƒ) 
+    + 03 : ë¶ˆê· í˜•ì´ ìžˆëŠ” ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ì¦ê°€) 3.6g * 44.4mm
+    + 04 : ë¶ˆê· í˜•ì´ ë” ì‹¬í•œ ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ë§¤ìš° ì¦ê°€) 5.6g * 44.4mm
 
 ```{r}
 filename <- 'D:/PHM_R/data_files/unbalance.mat'
@@ -180,34 +180,34 @@ filter01[ceiling(N / Fs * (BPFO - c)):ceiling(N / Fs * (BPFO + c))] <- 1
 ## 3. Fault Modes
 
  * unbalance.mat $\Longrightarrow$ [01 02 03 04]
-    + 01 : ½Ã°£
-    + 02 : ºÒ±ÕÇüÀÌ °ÅÀÇ ¾ø´Â °æ¿ì Áøµ¿(Á¤»ó) 
-    + 03 : ºÒ±ÕÇüÀÌ ÀÖ´Â °æ¿ì Áøµ¿ (1X¼ººÐÀÌ Áõ°¡) 3.6g * 44.4mm
-    + 04 : ºÒ±ÕÇüÀÌ ´õ ½ÉÇÑ °æ¿ì Áøµ¿ (1X¼ººÐÀÌ ¸Å¿ì Áõ°¡) 5.6g * 44.4mm
+    + 01 : ì‹œê°„
+    + 02 : ë¶ˆê· í˜•ì´ ê±°ì˜ ì—†ëŠ” ê²½ìš° ì§„ë™(ì •ìƒ) 
+    + 03 : ë¶ˆê· í˜•ì´ ìžˆëŠ” ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ì¦ê°€) 3.6g * 44.4mm
+    + 04 : ë¶ˆê· í˜•ì´ ë” ì‹¬í•œ ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ë§¤ìš° ì¦ê°€) 5.6g * 44.4mm
 
  * misalign.mat $\Longrightarrow$ [01 02 03]
-    + 01 : ½Ã°£
-    + 02 : ºÒ±ÕÇüÀÌ ÀÖ´Â °æ¿ì Áøµ¿ (1X¼ººÐÀÌ Áõ°¡) 3.6g * 44.4mm
-    + 03 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, Á¤·ÄºÒ·®ÀÌ ½ÉÇÑ °æ¿ì (2X ¼ººÐÀÌ Å©°Ô Áõ°¡) - 2mm Á¤·ÄºÒ·®
+    + 01 : ì‹œê°„
+    + 02 : ë¶ˆê· í˜•ì´ ìžˆëŠ” ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ì¦ê°€) 3.6g * 44.4mm
+    + 03 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ì •ë ¬ë¶ˆëŸ‰ì´ ì‹¬í•œ ê²½ìš° (2X ì„±ë¶„ì´ í¬ê²Œ ì¦ê°€) - 2mm ì •ë ¬ë¶ˆëŸ‰
 
  * outerrace_fault.mat $\Longrightarrow$ [01 02 03 04]
-    + 01 : ½Ã°£
-    + 02 : ºÒ±ÕÇüÀÌ ÀÖ´Â °æ¿ì Áøµ¿ (1X¼ººÐÀÌ Áõ°¡) 3.6g * 44.4mm
-    + 03 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, ¿Ü·û°áÇÔÀÌ ÀÖ´Â °æ¿ì
-    + 04 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, ¿Ü·û°áÇÔÀ¸·Î ±¸µ¿ Áß º£¾î¸µÀÌ ÆÄ¼ÕµÈ °æ¿ì
+    + 01 : ì‹œê°„
+    + 02 : ë¶ˆê· í˜•ì´ ìžˆëŠ” ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ì¦ê°€) 3.6g * 44.4mm
+    + 03 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ì™¸ë¥œê²°í•¨ì´ ìžˆëŠ” ê²½ìš°
+    + 04 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ì™¸ë¥œê²°í•¨ìœ¼ë¡œ êµ¬ë™ ì¤‘ ë² ì–´ë§ì´ íŒŒì†ëœ ê²½ìš°
 
  * innerrace_fault.mat $\Longrightarrow$ [01 02 03 04]
-    + 01 : ½Ã°£
-    + 02 : ºÒ±ÕÇüÀÌ °ÅÀÇ ¾ø´Â °æ¿ì Áøµ¿(Á¤»ó) 
-    + 03 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, ³»·û°áÇÔÀÌ ÀÖ´Â °æ¿ì
-    + 04 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, ³»·û°áÇÔÀ¸·Î ±¸µ¿ Áß º£¾î¸µÀÌ ÆÄ¼ÕµÈ °æ¿ì
+    + 01 : ì‹œê°„
+    + 02 : ë¶ˆê· í˜•ì´ ê±°ì˜ ì—†ëŠ” ê²½ìš° ì§„ë™(ì •ìƒ) 
+    + 03 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ë‚´ë¥œê²°í•¨ì´ ìžˆëŠ” ê²½ìš°
+    + 04 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ë‚´ë¥œê²°í•¨ìœ¼ë¡œ êµ¬ë™ ì¤‘ ë² ì–´ë§ì´ íŒŒì†ëœ ê²½ìš°
 
 ### 3.1. Unbalance
  * unbalance.mat $\Longrightarrow$ [01 02 03 04]
-    + 01 : ½Ã°£
-    + 02 : ºÒ±ÕÇüÀÌ °ÅÀÇ ¾ø´Â °æ¿ì Áøµ¿(Á¤»ó) 
-    + 03 : ºÒ±ÕÇüÀÌ ÀÖ´Â °æ¿ì Áøµ¿ (1X¼ººÐÀÌ Áõ°¡) 3.6g * 44.4mm
-    + 04 : ºÒ±ÕÇüÀÌ ´õ ½ÉÇÑ °æ¿ì Áøµ¿ (1X¼ººÐÀÌ ¸Å¿ì Áõ°¡) 5.6g * 44.4mm
+    + 01 : ì‹œê°„
+    + 02 : ë¶ˆê· í˜•ì´ ê±°ì˜ ì—†ëŠ” ê²½ìš° ì§„ë™(ì •ìƒ) 
+    + 03 : ë¶ˆê· í˜•ì´ ìžˆëŠ” ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ì¦ê°€) 3.6g * 44.4mm
+    + 04 : ë¶ˆê· í˜•ì´ ë” ì‹¬í•œ ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ë§¤ìš° ì¦ê°€) 5.6g * 44.4mm
     
 ```{r}
 filename <- 'D:/PHM_R/data_files/unbalance.mat'
@@ -264,9 +264,9 @@ plot(fss, abs(ut4ss), type = 'l', col = 'deepskyblue', lwd = 1, main = 'Unbalanc
 ### 3.2. Misalignment
 
  * misalign.mat $\Longrightarrow$ [01 02 03]
-    + 01 : ½Ã°£
-    + 02 : ºÒ±ÕÇüÀÌ ÀÖ´Â °æ¿ì Áøµ¿ (1X¼ººÐÀÌ Áõ°¡) 3.6g * 44.4mm
-    + 03 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, Á¤·ÄºÒ·®ÀÌ ½ÉÇÑ °æ¿ì (2X ¼ººÐÀÌ Å©°Ô Áõ°¡) - 2mm Á¤·ÄºÒ·®
+    + 01 : ì‹œê°„
+    + 02 : ë¶ˆê· í˜•ì´ ìžˆëŠ” ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ì¦ê°€) 3.6g * 44.4mm
+    + 03 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ì •ë ¬ë¶ˆëŸ‰ì´ ì‹¬í•œ ê²½ìš° (2X ì„±ë¶„ì´ í¬ê²Œ ì¦ê°€) - 2mm ì •ë ¬ë¶ˆëŸ‰
 
 
 ```{r}
@@ -315,10 +315,10 @@ plot(fss, abs(mt3ss), type = 'l', col = 'deepskyblue', lwd = 1, main = 'Misalign
 ### 3.3. Outer Race
 
  * outerrace_fault.mat $\Longrightarrow$ [01 02 03 04]
-    + 01 : ½Ã°£
-    + 02 : ºÒ±ÕÇüÀÌ ÀÖ´Â °æ¿ì Áøµ¿ (1X¼ººÐÀÌ Áõ°¡) 3.6g * 44.4mm
-    + 03 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, ¿Ü·û°áÇÔÀÌ ÀÖ´Â °æ¿ì
-    + 04 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, ¿Ü·û°áÇÔÀ¸·Î ±¸µ¿ Áß º£¾î¸µÀÌ ÆÄ¼ÕµÈ °æ¿ì
+    + 01 : ì‹œê°„
+    + 02 : ë¶ˆê· í˜•ì´ ìžˆëŠ” ê²½ìš° ì§„ë™ (1Xì„±ë¶„ì´ ì¦ê°€) 3.6g * 44.4mm
+    + 03 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ì™¸ë¥œê²°í•¨ì´ ìžˆëŠ” ê²½ìš°
+    + 04 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ì™¸ë¥œê²°í•¨ìœ¼ë¡œ êµ¬ë™ ì¤‘ ë² ì–´ë§ì´ íŒŒì†ëœ ê²½ìš°
 
 ```{r}
 filename <- 'D:/PHM_R/data_files/outerrace_fault.mat'
@@ -450,10 +450,10 @@ abline(v = c(BSF, BPFO, BDF, BPFI), lty = 2, col = c('green', 'red', 'blue', 'ma
 ### 3.4. Inner Race
 
  * innerrace_fault.mat $\Longrightarrow$ [01 02 03 04]
-    + 01 : ½Ã°£
-    + 02 : ºÒ±ÕÇüÀÌ °ÅÀÇ ¾ø´Â °æ¿ì Áøµ¿(Á¤»ó) 
-    + 03 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, ³»·û°áÇÔÀÌ ÀÖ´Â °æ¿ì
-    + 04 : ºÒ±ÕÇüÀÌ ÀÖÀ¸¸é¼­, ³»·û°áÇÔÀ¸·Î ±¸µ¿ Áß º£¾î¸µÀÌ ÆÄ¼ÕµÈ °æ¿ì
+    + 01 : ì‹œê°„
+    + 02 : ë¶ˆê· í˜•ì´ ê±°ì˜ ì—†ëŠ” ê²½ìš° ì§„ë™(ì •ìƒ) 
+    + 03 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ë‚´ë¥œê²°í•¨ì´ ìžˆëŠ” ê²½ìš°
+    + 04 : ë¶ˆê· í˜•ì´ ìžˆìœ¼ë©´ì„œ, ë‚´ë¥œê²°í•¨ìœ¼ë¡œ êµ¬ë™ ì¤‘ ë² ì–´ë§ì´ íŒŒì†ëœ ê²½ìš°
 
 ```{r}
 filename <- 'D:/PHM_R/data_files/innerrace_fault.mat'
