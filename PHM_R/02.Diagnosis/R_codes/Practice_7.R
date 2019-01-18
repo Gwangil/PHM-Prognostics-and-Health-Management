@@ -34,10 +34,10 @@ for (i in 1:20) {
 
 ##### Plot Percentage of The Total Variance ------------------------------------------------------
 plot(100 - Variance, xlim = c(0, 21), ylim = c(0, 100),
-     xlab = "Number of Pc", ylab = "Accumulated Percentage(%)")
+     xlab = "Number of PCs", ylab = "Accumulated Percentage(%)")
 abline(h = seq(0, 100, 20), v = seq(0, 21, 1), lty = 3, col = gray(0.8))
 
 ##### Plot Validation Accuracy -------------------------------------------------------------------
 plot(Valid_accuracy, xlim = c(0, 21), ylim = c(55, 100),
-     xlab = "Number of Pc", ylab = "Accracy")
+     xlab = "Number of PCs", ylab = "Accracy")
 abline(h = seq(55, 100, 5), v = seq(0, 21, 1), lty = 3, col = gray(0.8))
