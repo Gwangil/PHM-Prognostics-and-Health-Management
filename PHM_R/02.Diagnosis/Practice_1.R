@@ -42,7 +42,7 @@ TF_ImpulseFactor <- TF_RMS / TF_Mean
 Time_Featureset <- cbind(TF_Max, TF_Mean, TF_RMS, TF_Skewness, TF_Kurtosis,
                          TF_CrestFactor, TF_ShapeFactor, TF_ImpulseFactor)
 
-# Freq.-domain health teatures
+# Freq.-domain health features
 RPM <- 3600
 Freq_1x <- RPM / 60
 theta <- 0  # Angular (degrees)

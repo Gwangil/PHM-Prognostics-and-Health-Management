@@ -18,7 +18,7 @@ coeff <- pca$loadings  # eigen(covx)$vectors
 explained <- (pca$sdev^2 / sum(pca$sdev^2)) * 100
 latent <- eigen(covx)$values
 mu <- pca$center
-# twquared : Hotelling T squared is not so useful this time
+# tsquared : Hotelling T squared do not use this time
 
 ##### Save PCA Results ---------------------------------------------------------------------------
 save(coeff, explained, latent, mu, score, file = 'saved_data/pca.rds')

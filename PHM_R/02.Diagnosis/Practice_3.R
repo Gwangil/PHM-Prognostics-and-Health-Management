@@ -6,7 +6,7 @@ setwd('D:/PHM/PHM_R/02.Diagnosis')
 load('saved_data/pca.rds')
 
 ##### K-Nearest Neighbor -------------------------------------------------------------------------
-### Training
+### Training Data
 pca_train_data <- score[, 1:2]
 y_label <- rep(1:4, times = c(20, 10, 20, 20))
 
